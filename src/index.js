@@ -1,4 +1,11 @@
 import {Server} from 'hapi';
+import {
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+  MONGO_URL
+} from './config';
+
+console.log(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, MONGO_URL)
 
 // Create a server with a host and port
 const server = new Server();
@@ -10,7 +17,7 @@ server.connection({
 // Add the route
 server.route({
   method: 'GET',
-  path:'/hello',
+  path: '/hello',
 
   handler: function (request, reply) {
 
