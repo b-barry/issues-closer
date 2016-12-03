@@ -29,6 +29,17 @@ server.route({
   }
 });
 
+
+server.route({
+  method: 'POST',
+  path:'/auth/accessToken',
+
+  handler: function (req, res) {
+    console.log(' body ', res.body);
+    return res('Getting access token');
+  }
+});
+
 DB.on('error', console.error.bind(console, 'connection with database  error'));
 DB.once('open', () =>{
   console.log("Connection with database succeeded.");
