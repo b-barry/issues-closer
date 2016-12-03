@@ -5,7 +5,6 @@ import {
   MONGO_URL
 } from './config';
 
-console.log(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, MONGO_URL)
 
 // Create a server with a host and port
 const server = new Server();
