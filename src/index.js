@@ -1,10 +1,17 @@
 import {Server} from 'hapi';
 import Mongoose from 'mongoose';
-import {
+import Config, {
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
   MONGO_URL
 } from './config';
+import Promisify from 'promisify-node';
+import Github  from 'octonode';
+import  auth from './auth';
+
+
+Promisify(Github);
+
 
 
 Mongoose.connect(MONGO_URL);
@@ -30,13 +37,11 @@ server.route({
 });
 
 
-server.route({
-  method: 'POST',
-  path:'/auth/accessToken',
-
-  handler: function (req, res) {
-    console.log(' body ', res.body);
-    return res('Getting access token');
+auth({
+  server,
+  dps: {
+    Github,
+    Config
   }
 });
 
