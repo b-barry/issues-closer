@@ -1,4 +1,4 @@
-export default (({Mongoose}) => {
+export default ({Mongoose}) => {
 
   const Schema = Mongoose.Schema;
 
@@ -31,4 +31,4 @@ export default (({Mongoose}) => {
   const User = Mongoose.model('User', userSchema);
 
   return User;
-})()
+};
