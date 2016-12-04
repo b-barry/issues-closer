@@ -2,6 +2,7 @@ import {Server} from "hapi";
 import Mongoose from "mongoose";
 import good from "good";
 import HapiAuthJwt2 from 'hapi-auth-jwt2';
+import JWT from 'jsonwebtoken';
 import Config, {MONGO_URL} from "./config";
 import Bluebird from "bluebird";
 import Github from "octonode";
@@ -42,7 +43,8 @@ auth({
     Github: GithubPromise,
     Config,
     Mongoose,
-    HapiAuthJwt2
+    HapiAuthJwt2,
+    JWT
   }
 });
 
