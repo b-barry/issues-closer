@@ -44,3 +44,9 @@ export const validateJwtToken = ({User}) => {
   };
 };
 
+export const createJwtToken = (Jwt, secretToken, payload) => {
+  return jwt.sign(
+    {
+      payload
+    }, secretToken, {expiresIn: '120d'});
+}
