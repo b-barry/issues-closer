@@ -1,6 +1,7 @@
 import {Server} from "hapi";
 import Mongoose from "mongoose";
 import good from "good";
+import HapiAuthJwt2 from 'hapi-auth-jwt2';
 import Config, {MONGO_URL} from "./config";
 import Bluebird from "bluebird";
 import Github from "octonode";
@@ -40,7 +41,8 @@ auth({
   dps: {
     Github: GithubPromise,
     Config,
-    Mongoose
+    Mongoose,
+    HapiAuthJwt2
   }
 });
 
