@@ -1,16 +1,16 @@
 import {Server} from "hapi";
 import Mongoose from "mongoose";
 import good from "good";
-import goodConsole from "good-console";
 import Config, {MONGO_URL} from "./config";
-import Promisify from "promisify-node";
+import Bluebird from "bluebird";
 import Github from "octonode";
 import auth from "./auth";
 
 
-Promisify(Github);
-
-
+const GithubPromise = Bluebird.promisifyAll(Github, {multiArgs: true});
+GithubPromise.auth = Bluebird.promisifyAll(Github.auth);
+// Use native promises
+Mongoose.Promise = global.Promise;
 Mongoose.connect(MONGO_URL);
 const DB = Mongoose.connection;
 // Create a server with a host and port
@@ -38,7 +38,7 @@ server.route({
 auth({
   server,
   dps: {
-    Github,
+    Github: GithubPromise,
     Config,
     Mongoose
   }
@@ -58,7 +58,8 @@ const goodOptions = {
       args: [{
         log: '*',
         response: '*',
-        error:'*'
+        error: '*',
+        request:'*'
       }]
     }, {
       module: 'good-console'

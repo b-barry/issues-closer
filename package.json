@@ -15,6 +15,7 @@
   "author": "b-b4rry",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "dotenv": "^2.0.0",
     "good": "^7.1.0",
     "good-console": "^6.3.1",
@@ -22,7 +23,6 @@
     "hapi": "^16.0.1",
     "mongoose": "^4.7.1",
     "octonode": "^0.7.7",
-    "promisify-node": "^0.4.0",
     "rxjs": "^5.0.0-rc.4"
   },
   "devDependencies": {
