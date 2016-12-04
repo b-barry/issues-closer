@@ -15,11 +15,13 @@ export const getAccessToken = ({Github, Config, DB}) => {
     return Observable.from(client.me().infoAsync());
   };
 
-  const getMeRepository = (token, page = 1, per_page = 100) => {
+  const getMeRepository = (token, page = 1, per_page = 100, sort = 'updated', direction ='desc') => {
     console.log('Token getMeRepository ', token)
     const client = Github.client(token);
 
-    return Observable.from(client.me().reposAsync(page, per_page))
+    return Observable.from(client.me().reposAsync({
+      page, per_page, sort, direction
+    }))
       .mergeMap(([repos, header]) => {
 
         const nextPage = getNextPageNumberFromLinkHeader(header.link);
