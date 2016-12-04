@@ -41,7 +41,8 @@ auth({
   server,
   dps: {
     Github,
-    Config
+    Config,
+    Mongoose
   }
 });
 

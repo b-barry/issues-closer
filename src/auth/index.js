@@ -1,6 +1,6 @@
 import {getAccessToken} from './auth';
 
-export default ({ server, dps : { Github, Config}})=>{
+export default ({ server, dps : { Github, Config, Mongoose}})=>{
 
 
   server.route({
