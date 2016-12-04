@@ -57,7 +57,8 @@ const goodOptions = {
       name: 'Squeeze',
       args: [{
         log: '*',
-        response: '*'
+        response: '*',
+        error:'*'
       }]
     }, {
       module: 'good-console'
