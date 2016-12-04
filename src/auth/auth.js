@@ -1,7 +1,7 @@
-import {Observable} from "rxjs";
-import {getNextPageNumberFromLinkHeader} from "./utils";
+import {Observable} from "rxjs";// Move RXJS in DI
+import {getNextPageNumberFromLinkHeader, createJwtToken} from "./utils";
 
-export const getAccessToken = ({Github, Config, DB}) => {
+export const getAccessToken = ({Github, Config, DB, JWT}) => {
 
 
   const auth_url = Github.auth.config({
@@ -88,7 +88,7 @@ export const getAccessToken = ({Github, Config, DB}) => {
     const response$ = Observable
       .combineLatest(getUser$, getRepo$, (user, repos) => {
         return {
-          token: user.email,
+          token: createJwtToken(JWT,Config.SECRET_TOKEN, { email:user.email, isAdmin:false, id:user.id}),
           repos: repos
         }
       });
