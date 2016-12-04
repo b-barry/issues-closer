@@ -2,35 +2,37 @@ import {getAccessToken} from "./auth";
 import UserModel from "./user.model";
 import {validateJwtToken} from './utils'
 
-export default ({server, dps : {Github, Config, Mongoose, HapiAuthJwt2}}) => {
+export default ({server, dps : {Github, Config, Mongoose, HapiAuthJwt2, JWT}}) => {
 
   const User = UserModel({Mongoose});
 
-  server.route([
-    {
-      method: 'POST',
-      path: '/auth/accessToken',
 
-      config: {
-        auth: false,
-        // TODO: fix it after test
-        cors: {
-          origin: ['*'],
-          additionalHeaders: ['cache-control', 'x-requested-with']
-        }
+  const routes = (server)=>{
+    server.route([
+      {
+        method: 'POST',
+        path: '/auth/accessToken',
+
+        config: {
+          auth: false,
+          // TODO: fix it after test
+          cors: {
+            origin: ['*'],
+            additionalHeaders: ['cache-control', 'x-requested-with']
+          }
+        },
+        handler: getAccessToken({Github, Config,JWT, DB: {User}})
       },
-      handler: getAccessToken({Github, Config, DB: {User}})
-    },
-    // For testing purpose
-    {
-      method: 'GET', path: '/restricted', config: {auth: 'jwt'},
-      handler: function (request, reply) {
-        reply({text: 'You used a Token!'})
-          .header("Authorization", request.headers.authorization);
+      // For testing purpose
+      {
+        method: 'GET', path: '/restricted', config: {auth: 'jwt'},
+        handler: function (request, reply) {
+          reply({text: 'You used a Token!'})
+            .header("Authorization", request.headers.authorization);
+        }
       }
-    }
-  ]);
-
+    ]);
+  };
 
   server.register(HapiAuthJwt2, function (err) {
 
@@ -46,6 +48,8 @@ export default ({server, dps : {Github, Config, Mongoose, HapiAuthJwt2}}) => {
       });
 
     server.auth.default('jwt');
+
+    routes(server);
 
   });
 }
