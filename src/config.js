@@ -6,5 +6,6 @@ dotenv.config(PATH_ENV_FILE);
 export const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID.trim();
 export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET.trim();
 export const MONGO_URL = process.env.MONGO_URL.trim();
+export const SECRET_TOKEN = process.env.SECRET_TOKEN.trim();
 
-export default { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, MONGO_URL};
+export default { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, MONGO_URL, SECRET_TOKEN};
