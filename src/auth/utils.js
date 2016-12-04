@@ -19,7 +19,8 @@ export const getNextPageNumberFromLinkHeader = (linkHeader) => {
   const page = pageRaw.replace(/\D/g,'');
 
   try{
-    return parseInt(page);
+    const next = parseInt(page);
+    return next !== 1 ? next : undefined;
   }
   catch (err){
     return undefined;
