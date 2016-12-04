@@ -31,10 +31,11 @@ export const getNextPageNumberFromLinkHeader = (linkHeader) => {
 
 export const validateJwtToken = ({User}) => {
 
-  return ({id}, request, callback) => {
-
+  return ({payload:{id}}, request, callback) => {
+    // TODO: Promisify mongoose
     User
-      .findByIdAsync(id)
+      .findById(id)
+      .exec()
       .then((user) => {
         return user ? callback(null, true) : callback(null, false);
       })
@@ -45,7 +46,7 @@ export const validateJwtToken = ({User}) => {
 };
 
 export const createJwtToken = (Jwt, secretToken, payload) => {
-  return jwt.sign(
+  return Jwt.sign(
     {
       payload
     }, secretToken, {expiresIn: '120d'});
