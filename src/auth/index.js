@@ -1,7 +1,9 @@
-import {getAccessToken} from './auth';
+import {getAccessToken} from "./auth";
+import UserModel from "./user.model";
 
-export default ({ server, dps : { Github, Config, Mongoose}})=>{
+export default ({server, dps : {Github, Config, Mongoose}}) => {
 
+  const User = UserModel({Mongoose});
 
   server.route({
     method: 'POST',
@@ -13,7 +15,7 @@ export default ({ server, dps : { Github, Config, Mongoose}})=>{
         additionalHeaders: ['cache-control', 'x-requested-with']
       }
     },
-    handler: getAccessToken({ Github, Config})
+    handler: getAccessToken({Github, Config, DB:{ User}})
   });
 }
 
